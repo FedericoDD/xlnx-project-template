@@ -179,7 +179,7 @@ KERNEL = drambenchmark_top
 CORE_NAME=$(KERNEL)
 #######################################################
 #deploying parameters
-BRD_IP?=192.168.3.1
+BRD_IP?=192.168.2.99
 BRD_DIR?=/home/xilinx/xlnx-prj-template/
 BRD_USR?=xilinx
 #######################################################
