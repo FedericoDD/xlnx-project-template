@@ -32,18 +32,18 @@ VVD_SYNTH_SCRIPT = $(VIVADO_SCRIPT_DIR)/synth_vivado_project.tcl
 .PHONY: hls hw gen_vivado_prj bitfile launch_vivado_gui sw helplat
 hls: $(hls_code) $(hls_tb_code) $(SCRIPT_DIR)/hls.tcl
 	mkdir -p $(CURR_BUILD_DIR)
-	cd $(CURR_BUILD_DIR); vivado_hls -f $(SCRIPT_DIR)/hls.tcl -tclargs $(PRJ_NAME) "$(hls_code)" $(HLS_TB) $(BRD_PARTS) $(HLS_CLK) $(TOP_LVL_FN) $(HLS_DIR)/ $(HLS_OPTS) $(HLS_INCL); cd ../
+	cd $(CURR_BUILD_DIR); vitis_hls -f $(SCRIPT_DIR)/hls.tcl -tclargs $(PRJ_NAME) "$(hls_code)" $(HLS_TB) $(BRD_PARTS) $(HLS_CLK) $(TOP_LVL_FN) $(HLS_DIR)/ $(HLS_OPTS) $(HLS_INCL); cd ../
 
 hls_config: gen_hls_config
 	mkdir -p $(CURR_BUILD_DIR)
 	$(eval HLS_GEN_CODE_RUN_WITH_TB := $(shell echo $(HLS_CONFIG_DIR)/*pp ))
 	$(eval HLS_GEN_CODE_RUN_WITH_TB +=  $(shell echo $(HLS_CONFIG_DIR)/*.h ))
 	$(eval HLS_GEN_CODE_RUN := $(filter-out $(hls_curr_tb_code_gen), $(HLS_GEN_CODE_RUN_WITH_TB)))
-	cd $(CURR_BUILD_DIR); vivado_hls -f $(SCRIPT_DIR)/hls.tcl -tclargs $(PRJ_NAME) "$(HLS_GEN_CODE_RUN)" $(hls_curr_tb) $(BRD_PARTS) $(HLS_CLK) $(TOP_LVL_FN) $(HLS_CONFIG_DIR)/ $(HLS_OPTS) $(HLS_INCL); cd ../
+	cd $(CURR_BUILD_DIR); vitis_hls -f $(SCRIPT_DIR)/hls.tcl -tclargs $(PRJ_NAME) "$(HLS_GEN_CODE_RUN)" $(hls_curr_tb) $(BRD_PARTS) $(HLS_CLK) $(TOP_LVL_FN) $(HLS_CONFIG_DIR)/ $(HLS_OPTS) $(HLS_INCL); cd ../
 
 gen_hls_prj:
 	mkdir -p $(CURR_BUILD_DIR)
-	cd $(CURR_BUILD_DIR); vivado_hls -f $(SCRIPT_DIR)/hls.tcl -tclargs $(PRJ_NAME) "$(hls_code)" $(HLS_TB) $(BRD_PARTS) $(HLS_CLK) $(TOP_LVL_FN) $(HLS_DIR)/ 0; cd ../
+	cd $(CURR_BUILD_DIR); vitis_hls -f $(SCRIPT_DIR)/hls.tcl -tclargs $(PRJ_NAME) "$(hls_code)" $(HLS_TB) $(BRD_PARTS) $(HLS_CLK) $(TOP_LVL_FN) $(HLS_DIR)/ 0; cd ../
 
 hw_gen: hls_config hw
 
