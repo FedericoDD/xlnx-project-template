@@ -299,7 +299,12 @@ deploypy:prepdeploy sw_py
 	rsync -avz $(DPLY_PY) $(BRD_USR)@$(BRD_IP):$(BRD_DIR)
 #######################################################
 #######################################################
-
+	
+## Github action test
+githubactiontest:
+	touch dummy.file
+	rsync -avz dummy.file $(BRD_USR)@$(BRD_IP):$(BRD_DIR)
+	rm dummy.file
 
 ## clean facilities 
 cleanconfig:
